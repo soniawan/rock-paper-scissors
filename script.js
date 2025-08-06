@@ -15,25 +15,48 @@ const getComputerChoice = () => {
 
 btnChoice.forEach((btn) => {
   btn.addEventListener("click", () => {
-    const playerChoice = btn.id;
-    console.log(playerChoice);
-
     function comparisonResult() {
+      const playerChoice = btn.id;
+      console.log(playerChoice);
       const comChoice = getComputerChoice();
 
       if (comChoice === playerChoice) {
-        console.log(`Draw! ${playerChoice} = ${comChoice}`);
+        return [`Draw!`, playerChoice, comChoice];
       } else if (
         (playerChoice === "rock" && comChoice === "scissors") ||
         (playerChoice === "paper" && comChoice === "rock") ||
         (playerChoice === "scissors" && comChoice === "paper")
       ) {
-        console.log(`You Win!!! ${playerChoice} beat ${comChoice}`);
+        return [`You Win!`, playerChoice, comChoice];
       } else {
-        console.log(`You lose! ${playerChoice} defeated by ${comChoice}`);
+        return [`You Lose!`, playerChoice, comChoice];
       }
     }
 
-    comparisonResult();
+    // Function show result
+    function showResult() {
+      const comparResult = comparisonResult();
+      const playerText = document.createElement("h4");
+      const compText = document.createElement("h4");
+      const resultText = document.createElement("h3");
+      const vsText = document.createElement("p");
+
+      result.textContent = "";
+      result.classList.add("result");
+
+      resultText.textContent = comparResult[0];
+      playerText.textContent = `You choose : ${comparResult[1]}`;
+      vsText.textContent = "VS";
+      compText.textContent = `Computer choose : ${comparResult[2]} `;
+
+      result.appendChild(resultText);
+      result.appendChild(playerText);
+      result.appendChild(vsText);
+      result.appendChild(compText);
+    }
+
+    showResult();
   });
 });
+
+console.log(btnChoice);
